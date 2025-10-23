@@ -31,6 +31,15 @@ const ServerForms = () => {
     e.preventDefault();
     
     try {
+      if (!import.meta.env.VITE_SUPABASE_URL) {
+        toast({
+          title: "Configuration Required",
+          description: "Lovable Cloud is still provisioning. Please wait a moment and try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const { data, error } = await supabase.functions.invoke('submit-event-application', {
         body: eventFormData,
       });
