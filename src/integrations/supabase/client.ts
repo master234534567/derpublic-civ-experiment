@@ -7,7 +7,7 @@ export const getSupabase = () => {
   const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Supabase is not configured yet. Please wait for Lovable Cloud to finish provisioning.');
+    throw new Error('Backend is not configured yet. Please try again shortly.');
   }
 
   if (!supabaseInstance) {

@@ -34,7 +34,7 @@ const ServerForms = () => {
       if (!import.meta.env.VITE_SUPABASE_URL) {
         toast({
           title: "Configuration Required",
-          description: "Lovable Cloud is still provisioning. Please wait a moment and try again.",
+          description: "Backend is still provisioning. Please wait a moment and try again.",
           variant: "destructive",
         });
         return;
@@ -62,7 +62,6 @@ const ServerForms = () => {
         additionalInfo: "",
       });
     } catch (error) {
-      console.error('Error submitting application:', error);
       toast({
         title: "Submission Failed",
         description: "There was an error submitting your application. Please try again.",
@@ -78,7 +77,7 @@ const ServerForms = () => {
       if (!import.meta.env.VITE_SUPABASE_URL) {
         toast({
           title: "Configuration Required",
-          description: "Lovable Cloud is still provisioning. Please wait a moment and try again.",
+          description: "Backend is still provisioning. Please wait a moment and try again.",
           variant: "destructive",
         });
         return;
@@ -88,7 +87,7 @@ const ServerForms = () => {
       const { data, error } = await supabase.functions.invoke('submit-media-submission', {
         body: {
           ...mediaFormData,
-          mediaLink: mediaFormData.link, // Rename for edge function
+          mediaLink: mediaFormData.link,
         },
       });
 
@@ -107,7 +106,6 @@ const ServerForms = () => {
         link: "",
       });
     } catch (error) {
-      console.error('Error submitting media:', error);
       toast({
         title: "Submission Failed",
         description: "There was an error submitting your media. Please try again.",

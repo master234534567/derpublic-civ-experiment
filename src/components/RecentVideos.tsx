@@ -2,7 +2,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Play } from "lucide-react";
 
 const RecentVideos = () => {
-  // Placeholder data - can be updated with real video links
   const videos = [
     {
       id: 1,
