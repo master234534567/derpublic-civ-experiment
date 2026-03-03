@@ -6,15 +6,12 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
     const { discordUsername, minecraftUsername, eventType, availability, additionalInfo } = await req.json();
-    
-    console.log("Received event application:", { discordUsername, minecraftUsername, eventType });
 
     const webhookUrl = Deno.env.get('DISCORD_WEBHOOK_URL');
     
@@ -22,14 +19,10 @@ serve(async (req) => {
       throw new Error('Discord webhook URL not configured');
     }
 
-    // Format the message for Discord
     const message = {
       content: `🎮 **New Event Application Received!**\n\n**Discord Username:** ${discordUsername}\n**Minecraft Username:** ${minecraftUsername}\n**Event Type:** ${eventType}\n**Availability:** ${availability}\n**Additional Info:** ${additionalInfo || 'N/A'}`,
     };
 
-    console.log("Posting to Discord webhook");
-
-    // Send to Discord
     const discordResponse = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
@@ -40,11 +33,8 @@ serve(async (req) => {
 
     if (!discordResponse.ok) {
       const errorText = await discordResponse.text();
-      console.error("Discord API error:", errorText);
       throw new Error(`Discord API error: ${discordResponse.status}`);
     }
-
-    console.log("Successfully posted to Discord");
 
     return new Response(
       JSON.stringify({ success: true, message: 'Application submitted to Discord' }),
@@ -54,7 +44,6 @@ serve(async (req) => {
       }
     );
   } catch (error) {
-    console.error('Error in submit-event-application function:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     return new Response(
       JSON.stringify({ error: errorMessage }),

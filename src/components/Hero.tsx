@@ -5,7 +5,7 @@ import derpublicLogo from "@/assets/derpublic-logo.png";
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4">
-      {/* Animated stars background */}
+      
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(50)].map((_, i) => (
           <div
